@@ -4,6 +4,7 @@
 // Student No:
 // Date: 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+
 #include <iostream>
 
 using namespace std;
@@ -22,6 +23,50 @@ private:
 	int num;				// numerator;
 	int denom;				// denominator;
 public:
-	Fraction(int n, int d) : num(n), denum(d) { };
+	Fraction(int n, int d) : num(n), denom(d) { };
 	void print() { cout << num << "/" << denom; };
+	friend bool operator>(Fraction Y, Fraction Z);
+	friend Fraction ADD(const int, const Fraction);
+	friend Fraction ADD(const Fraction, const int);
 };
+
+bool operator>(Fraction Y, Fraction Z)
+{
+	if ((Y.num - Y.denom) > (Z.num - Z.denom))
+		return true;
+	else
+		return false;
+}
+
+Fraction ADD(const int Y, const Fraction Z)
+{
+	Fraction X((Z.denom*Y + Z.num), (Z.denom));
+	
+	return X;
+}
+
+Fraction ADD(const Fraction Z, const int Y)
+{
+	Fraction X((Z.denom*Y + Z.num), (Z.denom));
+
+	return X;
+}
+
+int main()
+{
+	Fraction Fr1(1, 3);
+	Fraction Fr2(4, 3);
+	int Z = 2;
+
+	if (Fr2 > Fr1)
+		cout << "Fr2=4/3 is more than Fr1=1/3" << endl;
+	else
+		cout << "Fr2=4/3 is not more than Fr1=1/3" << endl;
+
+	cout << "using the first addition function the answer is ";
+	ADD(Z, Fr1).print();
+	cout << "\nAfter swapping arguments the answer is still ";
+	ADD(Fr1, Z).print();
+
+
+}
